@@ -1,0 +1,74 @@
+from news.models import *
+u1 = User.objects.create_user('Кузя')
+u2 = User.objects.create_user('Даша')
+
+Author.objects.create(authorUser = u1)
+Author.objects.create(authorUser = u2)
+
+Category.objects.create(name='Политика')
+Category.objects.create(name='Спорт')
+Category.objects.create(name='Здоровье')
+Category.objects.create(name='Технологии')
+
+Post.objects.create(author=Author.objects.get(id=4), categoryType = 'AR', title = 'Прогулки на свежем воздухе увеличивают продолжительность жизни', text = 'Главная польза прогулок на свежем воздухе заключается в положительном влиянии на здоровье в целом. Физическая активность в сочетании с прогулкой на природе способствует укреплению иммунитета, причем даже в периоды холодов. Ежедневные прогулки улучшают работу сердца и сосудов, снижают артериальное давление, ускоряется обмен веществ, улучшается сон.')
+
+Post.objects.create(author=Author.objects.get(id=4), categoryType = 'NW', title = '«Ростов» разгромил дома «Локомотив»', text = 'Сегодня, 10 апреля, на стадионе «Ростов Арена» в Ростове-на-Дону в рамках 24-го тура Российской Премье
+р-Лиги сезона-2021/2022 «Ростов» принимал «Локомотив». Хозяева одержали победу – 4:1')
+
+Post.objects.create(author=Author.objects.get(id=3), categoryType = 'AR', title = 'Почта Яндекса стала удобнее на смартфонах Android, но не для iPhone', text = 'Команда Яндекса объявила о выпуске обновлённой, более удобной, версии 
+мобильного приложения Яндекс.Почта. Апдейт приносит ряд новых возможностей версии для Android.')
+
+Post.objects.get(id=4).postCategory.add(Category.objects.get(name='Технологии'))
+Post.objects.get(id=3).postCategory.add(Category.objects.get(name='Спорт'))       
+Post.objects.get(id=1).postCategory.add(Category.objects.get(name='Спорт')) 
+Post.objects.get(id=1).postCategory.add(Category.objects.get(name='Здоровье'))
+
+Comment.objects.create(commentPost=Post.objects.get(id=4), commentUser=Author.objects.get(id=4).authorUser, text='Отличная новость для пользователей Яндекс.Почты')
+Comment.objects.create(commentPost=Post.objects.get(id=3), commentUser=Author.objects.get(id=3).authorUser, text='Так им и надо')                                   
+Comment.objects.create(commentPost=Post.objects.get(id=1), commentUser=Author.objects.get(id=3).authorUser, text='Если гулять очень долго можно и устать)')
+Comment.objects.create(commentPost=Post.objects.get(id=1), commentUser=Author.objects.get(id=4).authorUser, text='Не забывайте одевать шапку в холодную погоду')
+
+Post.objects.get(id=1).like()
+Post.objects.get(id=1).like()
+Post.objects.get(id=1).like()
+Post.objects.get(id=3).like() 
+Post.objects.get(id=4).like()  
+Post.objects.get(id=4).like()
+Comment.objects.get(id=1).like()
+Comment.objects.get(id=1).like()
+Comment.objects.get(id=2).dislike()
+Comment.objects.get(id=2).dislike()
+ 
+Comment.objects.get(id=2).dislike()
+Comment.objects.get(id=2).dislike()
+Comment.objects.get(id=3).dislike() 
+Comment.objects.get(id=4).like()
+
+Author.objects.get(id=3).update_rating()
+Author.objects.get(id=4).update_rating()
+
+best_rating = Author.objects.all().order_by('-ratingAuthor')[:1]
+for i in best_rating:     
+    i.authorUser.username 
+    i.ratingAuthor
+
+best_post = Post.objects.all().order_by('-rating')[:1]
+for i in best_post:
+    i.dateCreation
+    i.author.authorUser.username
+    i.rating
+    i.title
+    i.preview()
+
+for i in best_post:
+    PostID = i.id
+allComment = Comment.objects.filter(commentPost=PostID)
+for c in allComment:
+    c.dateCreation
+    c.commentUser.username
+    c.rating
+    c.text
+
+ 
+  
+
