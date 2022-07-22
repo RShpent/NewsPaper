@@ -1,6 +1,7 @@
 <!--  наследуемся от шаблона default.html, который мы создавали для flatpages -->
 {% extends 'flatpages/default.html' %}
 
+{% load censor %}
 
 {% block title %}
     <h1>{{ news_one.get_categoryType_display }}</h1>
@@ -8,9 +9,9 @@
 
 
 {% block content %}
-    <h2>{{ news_one.title }}</h2>
+    <h2>{{ news_one.title|censor}}</h2>
     <h2>{{ news_one.dateCreation|date:'d M Y' }}</h2>
-    {{ news_one.text }}
+    {{ news_one.text|censor }}
 <!--    {% for cat_name in news_one.postCategory.all %}-->
 <!--        {{cat_name}}{% if not forloop.last %},{% endif %}-->
 <!--    {% endfor %}-->
